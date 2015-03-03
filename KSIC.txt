@@ -1,5 +1,7 @@
 Welcome to the KSIC Github repository.
 
-Check out this file, add your name and check it back in. Nice start.
+Look at this file! 
+
+Add your name and sync it with the project. Nice start.
 
 Drew
