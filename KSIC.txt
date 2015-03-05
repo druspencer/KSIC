@@ -1,12 +1,12 @@
 Welcome to the KSIC Github repository.
 
-Look at this file! 
+Look at this file!
 
 Add your name and sync it with the project. Nice start.
 
 Drew
 Laurie!
-
+Alex
 
 
 
