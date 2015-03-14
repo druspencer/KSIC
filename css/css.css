@@ -3,7 +3,7 @@
 			display:block-inline;
 			width:100%;
 			height:100%;
-			background-color:orange;
+			background-color:white;
 			}
 
 #content-container
@@ -26,13 +26,29 @@
 				background-color:red;
 			}
 			
+#logo
+			{
+			box-sizing: box;
+			height: 141px;
+			background-color:black;
+			
+			}
+			
 #side-menu-bottom 
 			{
 			display:block;
 			position: relative;
 			box-sizing: border-box;
-			background-color:blue;
+			background-color:#3EA8DA;
 			text-align: center;
+			height:100%;
+			}
+#side-menu-bottom-green
+			{
+			display:block;
+			position:relative;
+			width:90px;
+			background-color:2EEACE;
 			height:100%;
 			}
 			
@@ -67,17 +83,17 @@
 			}
 .section-head
 			{
-			background-color: green;
+			background-color: FF9933;
 			border-bottom: 1px solid white;
 			}
 .section-head:hover
 			{
-			background-color:pink;
+			background-color:FF6600;
 			}
 		
 .section-link
 			{
-			background-color:purple;
+			background-color:FFCC00;
 			border-bottom: 1px solid D1A3FF;
 			}
 			

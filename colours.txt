@@ -1,0 +1,4 @@
+#2EEACE - turquoise
+#3EA8DA - blue
+#FF9933 - orange, section head
+#FF6600 - orange darker, section head hover
