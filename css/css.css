@@ -1,0 +1,67 @@
+#side-menu	
+			{	
+				display: block;
+				position: fixed;
+				width: 250px;
+				height: 100%;
+				background-color:red;
+			}
+			
+#side-menu-bottom 
+			{
+			display:block;
+			position: relative;
+			box-sizing: border-box;
+			background-color:blue;
+			text-align: center;
+			height:100%;
+			}
+			
+.category_container 
+			{
+			display:block;
+			position: relative;
+			box-sizing: border-box;
+			background-color:blue;
+			border-bottom: 1px solid white;
+			text-align: center;
+			vertical-align: middle;
+			}
+			
+.cat-collapse
+			{
+			max-height: 50px;
+			transition: max-height 0.3s ease-out;
+			}
+			
+.cat-expand
+			{
+			max-height: 400px;
+			transition: max-height 0.3s ease-in;
+			}
+
+.section	{
+			display:block;
+			box-sizing: border-box;
+			height:50px;
+			padding: 15 0 0 0;
+			}
+		
+.section-link
+			{
+			background-color:purple;
+			}
+			
+.section-link:hover
+			{
+			background-color:yellow;
+			}
+
+.section-head
+			{
+			background-color: green;
+			}
+.section-head:hover
+			{
+			background-color:pink;
+			}

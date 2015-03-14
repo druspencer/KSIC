@@ -1,0 +1,100 @@
+<html>
+
+<head>
+
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+
+		
+		<script language="JavaScript">
+
+
+
+		function cat_expand(container) {
+		
+		if (container.className== 'category_container cat-expand') {
+				container.className= 'category_container cat-collapse' ;}
+			
+			else {
+		
+		var all_expand = document.getElementsByClassName('category_container cat-expand')
+		
+		while (all_expand.length) {
+				all_expand[0].className = 'category_container cat-collapse';
+				}
+		
+		container.className= 'category_container cat-expand';
+		}
+				
+				}
+
+			
+		</script>
+		
+</head>
+
+
+<body>
+
+<div id="side-menu">
+
+		<div id="cat1" class="category_container cat-collapse">
+			<div id="cat1-head" onclick="cat_expand(cat1)" class="section section-head">
+				LINK HEADER 1
+			</div>
+					<div id="cat1-link1" class="section section-link">
+						LINK 1
+					</div>
+					<div id="cat1-link2" class="section section-link">
+						LINK 2
+					</div>			
+		</div>
+
+		<div id="cat2" class="category_container cat-collapse">
+			<div id="cat2-head" onclick="cat_expand(cat2)" class="section section-head">
+				LINK HEADER 2
+			</div>
+					<div id="cat2-link1" class="section section-link">
+						LINK 1
+					</div>
+					<div id="cat2-link2" class="section section-link">
+						LINK 2
+					</div>
+		</div>
+
+		<div id="cat3" class="category_container cat-collapse">
+			<div id="cat3-head" onclick="cat_expand(cat3)" class="section section-head">
+				LINK HEADER 3
+			</div>
+					<div id="cat3-link1" class="section section-link">
+						LINK 1
+					</div>
+					<div id="cat3-link2" class="section section-link">
+						LINK 2
+					</div>
+		</div>
+
+		<div id="cat4" class="category_container cat-collapse">
+			<div id="cat4-head" onclick="cat_expand(cat4)" class="section section-head">
+				LINK HEADER 4
+			</div>
+					<div id="cat4-link1" class="section section-link">
+						LINK 1
+					</div>
+					<div id="cat4-link2" class="section section-link">
+						LINK 2
+					</div>	
+		</div>
+		
+		<div id="side-menu-bottom">
+		
+		</div>
+
+</div>
+
+
+
+</body>
+
+
+
+</html>
