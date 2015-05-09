@@ -28,6 +28,22 @@
 		}
 				
 				}
+				
+		function cat_expand_hover(container) {
+		
+
+				container.className= 'category_container cat-expand' ;
+		
+		}
+		
+		function cat_close_hover(container) {
+		
+		
+				container.className= 'category_container cat-collapse' ;
+			
+			
+		
+		}
 
 			
 		</script>
@@ -45,9 +61,9 @@
 			
 		</div>
 
-		<div id="cat1" class="category_container cat-collapse">
-			<div id="cat1-head" onclick="cat_expand(cat1)" class="section section-head">
-				<i class="fa fa-bed"></i>
+		<div id="cat1" onmouseover="cat_expand_hover(cat1)" onmouseout="cat_close_hover(cat1)" class="category_container cat-collapse">
+			<div id="cat1-head" class="section section-head">
+				<i class="fa fa-book"></i>
 			</div>
 					<div id="cat1-link1" class="section section-link">
 						LINK 1
@@ -57,9 +73,9 @@
 					</div>			
 		</div>
 
-		<div id="cat2" class="category_container cat-collapse">
-			<div id="cat2-head" onclick="cat_expand(cat2)" class="section section-head">
-				LINK HEADER 2
+		<div id="cat2" onmouseover="cat_expand_hover(cat2)" onmouseout="cat_close_hover(cat2)" class="category_container cat-collapse">
+			<div id="cat2-head" class="section section-head">
+				<i class="fa fa-gears"></i>
 			</div>
 					<div id="cat2-link1" class="section section-link">
 						LINK 1
@@ -69,9 +85,9 @@
 					</div>
 		</div>
 
-		<div id="cat3" class="category_container cat-collapse">
-			<div id="cat3-head" onclick="cat_expand(cat3)" class="section section-head">
-				LINK HEADER 3
+		<div id="cat3" onmouseover="cat_expand_hover(cat3)" onmouseout="cat_close_hover(cat3)" class="category_container cat-collapse">
+			<div id="cat3-head" class="section section-head">
+				<i class="fa fa-graduation-cap"></i>
 			</div>
 					<div id="cat3-link1" class="section section-link">
 						LINK 1
@@ -81,9 +97,9 @@
 					</div>
 		</div>
 
-		<div id="cat4" class="category_container cat-collapse">
-			<div id="cat4-head" onclick="cat_expand(cat4)" class="section section-head">
-				LINK HEADER 4
+		<div id="cat4" onmouseover="cat_expand_hover(cat4)" onmouseout="cat_close_hover(cat4)" class="category_container cat-collapse">
+			<div id="cat4-head" class="section section-head">
+				<i class="fa fa-bookmark"></i>
 			</div>
 					<div id="cat4-link1" class="section section-link">
 						LINK 1
