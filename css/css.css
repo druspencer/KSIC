@@ -1,20 +1,25 @@
+body		{
+			background-color:C3E0FA;
+			}
+
 #page-background
 			{
+			position:fixed;
 			display:block-inline;
+			left:250px;
 			width:100%;
 			height:100%;
-			background-color:white;
 			}
 
 #content-container
 			{
 			position:relative;
-			left: 275px;
-			top: 20px;
+			left: 25px;
 			display:block;
 			width:75%;
-			height:75%;
-			background-color:white;
+			height:95%;
+			/* background-color:38A3FF; */
+			
 			}
 
 #side-menu	
@@ -25,6 +30,7 @@
 				height: 100%;
 				background-color:red;
 				font-family: 'Lato', serif;
+				z-index: 1000;
 			}
 			
 #logo
@@ -98,7 +104,7 @@
 .section-link
 			{
 			background-color:#E6E6E6;
-			border-bottom: 1px solid D1A3FF;
+			border-bottom: 1px solid white;
 			}
 			
 .section-link:hover
