@@ -14,7 +14,7 @@
 			display:block;
 			width:75%;
 			height:75%;
-			background-color:red;
+			background-color:white;
 			}
 
 #side-menu	
@@ -61,6 +61,8 @@
 			text-align: center;
 			vertical-align: middle;
 			cursor: pointer;
+			border-right: 3px solid #3EA8DA;
+			border-left: 3px solid #2EEACE;
 			}
 			
 .cat-collapse
@@ -83,23 +85,24 @@
 			}
 .section-head
 			{
-			background-color: FF9933;
-			border-bottom: 1px solid white;
-			}
+			background-color: white;
+			border-bottom: 1px solid #3EA8DA;
+			
+				}
 .section-head:hover
 			{
-			background-color:FF6600;
+			
 			}
 		
 .section-link
 			{
-			background-color:FFCC00;
+			background-color:#E6E6E6;
 			border-bottom: 1px solid D1A3FF;
 			}
 			
 .section-link:hover
 			{
-			background-color:yellow;
+			background-color:D8D8D8;
 			}
 
 
