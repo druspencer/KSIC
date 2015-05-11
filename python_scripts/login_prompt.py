@@ -1,8 +1,9 @@
 from selenium import webdriver
+import getpass
 
 page_url = raw_input("Website (e.g. facebook.com): ")
 email_address = raw_input("Email: ")
-password = raw_input("Password: ")
+password = getpass.getpass("Password: ")
 
 print "Launching Firefox"
 
