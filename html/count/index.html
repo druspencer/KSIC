@@ -2,34 +2,44 @@
 
 <head>
 
-<script>
+<link href="http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript">
 
 var red_score = 0;
 var blue_score = 0;
 
-
-
 function increase_red_score(container){
-	red_score++
+	red_score++;
 	document.getElementById(container).innerHTML = red_score;
 
 }
 
 function decrease_red_score(container){
-	red_score--
+	red_score--;
 	document.getElementById(container).innerHTML = red_score;
 
 }
 
 function increase_blue_score(container){
-	blue_score++
+	blue_score++;
 	document.getElementById(container).innerHTML = blue_score;
 
 }
 
 function decrease_blue_score(container){
-	blue_score--
+	blue_score--;
 	document.getElementById(container).innerHTML = blue_score;
+
+}
+
+function reset(container){
+	red_score = red_score - red_score ;
+	blue_score = blue_score - blue_score ;
+	document.getElementById("redCount").innerHTML = blue_score;
+	document.getElementById("blueCount").innerHTML = blue_score;
+	
 
 }
 
@@ -38,6 +48,8 @@ function decrease_blue_score(container){
 <style type="text/css">
 
 body	{
+		background-color:black;
+		font-family: 'Lato', serif;
 
 		}
 
@@ -57,14 +69,14 @@ body	{
 		}
 		
 #red_increase	{
-		background-color:red; 
+		background-color:#C9042B; 
 		float:left;
 
 		}
 
 #blue_increase	{
 		
-		background-color:blue; 
+		background-color:#6665DD; 
 		float:right;
 
 		}
@@ -78,21 +90,23 @@ body	{
 		}
 		
 #red_decrease	{
-		background-color:grey;
+		background-color:#DB504A;
 		float:left;
 
 		}
 #blue_decrease	{
-		background-color:grey;
+		background-color:#8789C0;
 		float:right;
 		}
 		
 #new_game {
-		background-color:green;
+		background-color:#8AA399;
 		width:100%;
 		height:10%;
 		float:left;
 		text-align:center;
+		font-weight: bold;
+		color:white;
 		}
 
 .center_text {
@@ -139,7 +153,7 @@ body	{
 				</span>
 			</div>
 
-			<div id="new_game"> 
+			<div id="new_game" onclick=reset("blueCount")> 
 				<span class="center_text">
 				New Game
 				</span>
@@ -147,5 +161,9 @@ body	{
 
 </div>
 
+
+
 </body>
+
+
 </html>
