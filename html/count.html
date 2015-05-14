@@ -1,0 +1,151 @@
+<html>
+
+<head>
+
+<script>
+
+var red_score = 0;
+var blue_score = 0;
+
+
+
+function increase_red_score(container){
+	red_score++
+	document.getElementById(container).innerHTML = red_score;
+
+}
+
+function decrease_red_score(container){
+	red_score--
+	document.getElementById(container).innerHTML = red_score;
+
+}
+
+function increase_blue_score(container){
+	blue_score++
+	document.getElementById(container).innerHTML = blue_score;
+
+}
+
+function decrease_blue_score(container){
+	blue_score--
+	document.getElementById(container).innerHTML = blue_score;
+
+}
+
+</script>
+
+<style type="text/css">
+
+body	{
+
+		}
+
+#wrap	{
+		width:100%;
+		height:100%;
+		}
+
+.team_button {
+		width:50%; 
+		height:75%;
+		font-weight: bold;
+		text-align:center;
+		color:white;
+		display:block;
+
+		}
+		
+#red_increase	{
+		background-color:red; 
+		float:left;
+
+		}
+
+#blue_increase	{
+		
+		background-color:blue; 
+		float:right;
+
+		}
+
+.decrease_button	{
+		width:50%;
+		height:15%;
+		font-weight: bold;
+		color:white;
+		text-align:center;
+		}
+		
+#red_decrease	{
+		background-color:grey;
+		float:left;
+
+		}
+#blue_decrease	{
+		background-color:grey;
+		float:right;
+		}
+		
+#new_game {
+		background-color:green;
+		width:100%;
+		height:10%;
+		float:left;
+		text-align:center;
+		}
+
+.center_text {
+		position:relative;
+		top:50%;
+		line-height:100%;
+		width:100%;
+		height:100%;
+			}
+		
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="wrap">
+
+
+			<div id="red_increase" class="team_button" onclick=increase_red_score("redCount")>
+				<span id="redCount" class="center_text">
+						0
+				</span>
+			</div>
+
+			<div id="blue_increase" class="team_button" onclick=increase_blue_score("blueCount")>
+				<span id="blueCount" class="center_text">
+						0
+				</span>
+			</div>
+			
+			<div id="red_decrease" class="decrease_button" onclick=decrease_red_score("redCount")>
+				<span class="center_text">
+				Remove Point
+				</span>
+			</div>
+
+			<div id="blue_decrease" class="decrease_button" onclick=decrease_blue_score("blueCount")>
+				<span class="center_text">
+				Remove Point
+				</span>
+			</div>
+
+			<div id="new_game"> 
+				<span class="center_text">
+				New Game
+				</span>
+			</div>
+
+</div>
+
+</body>
+</html>
