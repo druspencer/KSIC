@@ -29,14 +29,16 @@ body	{
 #blue_increase	{
 		
 		background-color:#6665DD; 
-		float:right;
+		float:left;
 		}
+
 .decrease_button	{
 		width:50%;
 		height:20%;
 		font-weight: bold;
 		color:white;
 		text-align:center;
+		font-size:200%;
 		}
 		
 #red_decrease	{
@@ -47,6 +49,7 @@ body	{
 		background-color:#8789C0;
 		float:right;
 		}
+
 		
 #new_game {
 		background-color:#8AA399;
@@ -55,6 +58,7 @@ body	{
 		float:left;
 		text-align:center;
 		color:white;
+		font-size:200%;
 		}
 		
 #redCount {
@@ -69,7 +73,6 @@ body	{
 .center_text {
 		position:relative;
 		top:40%;
-		line-height:100%;
 		width:100%;
 		height:50%;
 			}
