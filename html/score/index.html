@@ -7,8 +7,8 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
 <link rel="stylesheet" type="text/css" href="css/count.css"/>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link href="http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
-
 
 <script type="text/javascript">
 			
@@ -43,6 +43,14 @@
 				window.localStorage.setItem( "blue_score_local", blue_score_local );
 				
 			}
+			
+		function hideshow(container) {
+			if (container.className== 'hide') {
+				container.className= 'show'; }
+			else {
+				container.className= 'hide'; }
+			}
+
 </script>
 
 	
@@ -80,13 +88,32 @@
 				</div>
 			</div>
 
-			<div id="new_game" onclick=reset("blueCount")> 
+			
+			<div id="settings_toggle" onclick=hideshow(settings)> 
+					
 				<div class="center_text">
-				[ 0 - 0 ]
+				<i class="fa fa-cog"></i>
 				</div>
+						
 			</div>
+			
+						<div id="settings" class="hide">
 
+							<div id="reset_scores" onclick=reset()> 
+								
+									<div class="center_text">
+										[ 0 - 0 ]
+									</div>
+							</div>
+
+						</div>
+			
+		
 </div>
+
+
+
+
 
 <script>
 
