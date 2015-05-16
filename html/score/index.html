@@ -1,124 +1,41 @@
+
 <html>
 
 <head>
 
+<link rel="stylesheet" type="text/css" href="css/count.css"/>
 <link href="http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
 
 <script type="text/javascript">
-
 var red_score = 0;
 var blue_score = 0;
-
 function increase_red_score(container){
 	red_score++;
 	document.getElementById(container).innerHTML = red_score;
-
 }
-
 function decrease_red_score(container){
 	red_score--;
 	document.getElementById(container).innerHTML = red_score;
-
 }
-
 function increase_blue_score(container){
 	blue_score++;
 	document.getElementById(container).innerHTML = blue_score;
-
 }
-
 function decrease_blue_score(container){
 	blue_score--;
 	document.getElementById(container).innerHTML = blue_score;
-
 }
-
 function reset(container){
 	red_score = red_score - red_score ;
 	blue_score = blue_score - blue_score ;
 	document.getElementById("redCount").innerHTML = blue_score;
 	document.getElementById("blueCount").innerHTML = blue_score;
 	
-
 }
-
 </script>
 
-<style type="text/css">
-
-body	{
-		background-color:black;
-		font-family: 'Lato', serif;
-
-		}
-
-#wrap	{
-		width:100%;
-		height:100%;
-		}
-
-.team_button {
-		width:50%; 
-		height:75%;
-		font-weight: bold;
-		text-align:center;
-		color:white;
-		display:block;
-
-		}
-		
-#red_increase	{
-		background-color:#C9042B; 
-		float:left;
-
-		}
-
-#blue_increase	{
-		
-		background-color:#6665DD; 
-		float:right;
-
-		}
-
-.decrease_button	{
-		width:50%;
-		height:15%;
-		font-weight: bold;
-		color:white;
-		text-align:center;
-		}
-		
-#red_decrease	{
-		background-color:#DB504A;
-		float:left;
-
-		}
-#blue_decrease	{
-		background-color:#8789C0;
-		float:right;
-		}
-		
-#new_game {
-		background-color:#8AA399;
-		width:100%;
-		height:10%;
-		float:left;
-		text-align:center;
-		font-weight: bold;
-		color:white;
-		}
-
-.center_text {
-		position:relative;
-		top:50%;
-		line-height:100%;
-		width:100%;
-		height:100%;
-			}
-		
-
-</style>
+	
 
 </head>
 
@@ -130,33 +47,33 @@ body	{
 
 
 			<div id="red_increase" class="team_button" onclick=increase_red_score("redCount")>
-				<span id="redCount" class="center_text">
+				<div id="redCount" class="center_text">
 						0
-				</span>
+				</div>
 			</div>
 
 			<div id="blue_increase" class="team_button" onclick=increase_blue_score("blueCount")>
-				<span id="blueCount" class="center_text">
+				<div id="blueCount" class="center_text">
 						0
-				</span>
+				</div>
 			</div>
 			
 			<div id="red_decrease" class="decrease_button" onclick=decrease_red_score("redCount")>
-				<span class="center_text">
-				Remove Point
-				</span>
+				<div class="center_text">
+				[ - 1 ]
+				</div>
 			</div>
 
 			<div id="blue_decrease" class="decrease_button" onclick=decrease_blue_score("blueCount")>
-				<span class="center_text">
-				Remove Point
-				</span>
+				<div class="center_text">
+				[ - 1 ]
+				</div>
 			</div>
 
 			<div id="new_game" onclick=reset("blueCount")> 
-				<span class="center_text">
-				New Game
-				</span>
+				<div class="center_text">
+				[ 0 - 0 ]
+				</div>
 			</div>
 
 </div>
