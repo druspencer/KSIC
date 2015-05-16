@@ -11,31 +11,38 @@
 
 
 <script type="text/javascript">
-var red_score = 0;
-var blue_score = 0;
-function increase_red_score(container){
-	red_score++;
-	document.getElementById(container).innerHTML = red_score;
-}
-function decrease_red_score(container){
-	red_score--;
-	document.getElementById(container).innerHTML = red_score;
-}
-function increase_blue_score(container){
-	blue_score++;
-	document.getElementById(container).innerHTML = blue_score;
-}
-function decrease_blue_score(container){
-	blue_score--;
-	document.getElementById(container).innerHTML = blue_score;
-}
-function reset(container){
-	red_score = red_score - red_score ;
-	blue_score = blue_score - blue_score ;
-	document.getElementById("redCount").innerHTML = blue_score;
-	document.getElementById("blueCount").innerHTML = blue_score;
-	
-}
+			
+
+			function increase_red_score(container){
+				red_score_local++;
+				document.getElementById(container).innerHTML = red_score_local;
+				window.localStorage.setItem( "red_score_local", red_score_local );
+			}
+			function decrease_red_score(container){
+				red_score_local--;
+				document.getElementById(container).innerHTML = red_score_local;
+				window.localStorage.setItem( "red_score_local", red_score_local );
+			}
+			function increase_blue_score(container){
+				blue_score_local++;
+				document.getElementById(container).innerHTML = blue_score_local;
+				window.localStorage.setItem( "blue_score_local", blue_score_local );
+			}
+			function decrease_blue_score(container){
+				blue_score_local--;
+				document.getElementById(container).innerHTML = blue_score_local;
+				window.localStorage.setItem( "blue_score_local", blue_score_local );
+			}
+			
+			function reset(container){
+				red_score_local = red_score_local - red_score_local ;
+				blue_score_local = blue_score_local - blue_score_local ;
+				document.getElementById("redCount").innerHTML = red_score_local;
+				document.getElementById("blueCount").innerHTML = blue_score_local;
+				window.localStorage.setItem( "red_score_local", red_score_local );
+				window.localStorage.setItem( "blue_score_local", blue_score_local );
+				
+			}
 </script>
 
 	
@@ -51,13 +58,13 @@ function reset(container){
 
 			<div id="red_increase" class="team_button" onclick=increase_red_score("redCount")>
 				<div id="redCount" class="center_text">
-						0
+						
 				</div>
 			</div>
 
 			<div id="blue_increase" class="team_button" onclick=increase_blue_score("blueCount")>
 				<div id="blueCount" class="center_text">
-						0
+						
 				</div>
 			</div>
 						
@@ -81,6 +88,49 @@ function reset(container){
 
 </div>
 
+<script>
+
+function set_score(){
+
+if ( window.localStorage.getItem("red_score_local") == null ) { 
+
+				red_score_local = 0; 
+				window.localStorage.setItem( "red_score_local", red_score_local );
+				red_score_local = window.localStorage.getItem("red_score_local");
+				document.getElementById("redCount").innerHTML = red_score_local;
+							
+										}
+			else {
+			
+				red_score_local = window.localStorage.getItem("red_score_local");
+				document.getElementById("redCount").innerHTML = red_score_local;
+			
+			
+			}
+		
+		if ( window.localStorage.getItem("blue_score_local") == null ) { 
+
+				blue_score_local = 0; 
+				window.localStorage.setItem( "blue_score_local", blue_score_local );
+				red_score_local = window.localStorage.getItem("blue_score_local");
+				document.getElementById("blueCount").innerHTML = blue_score_local;
+							
+										}
+			else {
+			
+				blue_score_local = window.localStorage.getItem("blue_score_local");
+				document.getElementById("blueCount").innerHTML = blue_score_local;
+			
+			
+			}
+			
+		}
+					 	
+	window.addEventListener("load",set_score);
+	//console.log(window.localStorage);
+	// localStorage.clear();
+	
+</script>
 
 
 </body>
