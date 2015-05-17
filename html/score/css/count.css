@@ -24,31 +24,89 @@ body	{
 		height:100%;
 		}
 .team_button {
-		width:50%; 
-		height:60%;
 		text-align:center;
 		color:white;
 		display:block;
-		font-size:700%;
+		font-size:70px;
 		}
+		
+.one_player {
+        width:100%;
+        height:60%;
+        }
+		
+.two_players {
+        width:50%; 
+		height:60%;
+}
+ 
+.three_players {
+        width:33.3%;
+        height: 60%;
+}
+
+.three_players_point {
+        width:33.4%;
+        height: 60%;
+}
+
+.four_players {
+        width:50%;
+        height: 30%;
+}
 		
 #red_increase	{
 		background-color:#C9042B; 
 		float:left;
 		}
+		
 #blue_increase	{
 		
 		background-color:#6665DD; 
 		float:left;
 		}
+		
+#green_increase	{
+		background-color:#419D78; 
+		float:left;
+		}
+		
+#yellow_increase	{
+		
+		background-color:#F9CB40; 
+		float:left;
+		}
 
 .decrease_button	{
-		width:50%;
-		height:26%;
 		font-weight: bold;
 		color:white;
 		text-align:center;
-		font-size:200%;
+		font-size:50px;
+		}
+
+.decrease_one_player {
+		width:100%;
+		height:20%;
+
+		}
+		
+.decrease_two_players {
+		width:50%;
+		height:20%;
+		}
+		
+.decrease_three_players {
+		width:33.3%;
+		height:20%;
+		}
+
+.decrease_three_players_point{
+		width:33.4%;
+		height:20%;
+		}
+.decrease_four_players {
+		width:25%;
+		height:20%;
 		}
 		
 #red_decrease	{
@@ -57,14 +115,24 @@ body	{
 		}
 #blue_decrease	{
 		background-color:#8789C0;
-		float:right;
+		float:left;
+		}
+
+#green_decrease	{
+		background-color:7DD181;
+		float:left;
+		}
+
+#yellow_decrease	{
+		background-color:F9DF74;
+		float:left;
 		}
 
 		
 #settings_toggle {
 		background-color:#8AA399;
 		width:100%;
-		height:14%;
+		height:20%;
 		float:left;
 		text-align:center;
 		color:white;
@@ -79,10 +147,27 @@ body	{
 
 			}
 			
+#greenCount {
+			
+			}
+
+#yellowCount {
+
+			}
+			
 			
 .center_text {
 		position:relative;
-		top:40%;
+		top:50%;
+		width:100%;
+		height:50%;
+		line-height:15%;
+		float:left;
+			}
+			
+.center_symbol {
+		position:relative;
+		top:30%;
 		width:100%;
 		height:50%;
 		float:left;
@@ -94,20 +179,59 @@ body	{
 		left:0px;
 		z-index:1000;
 		width:100%;
-		height:86%;
-		background-color:#8AA399;
-		
+		height:80%;
+		background-color:CFCFCD;
+		text-align:center;
+		color:white;
+		font-size:50px;
 
 		}
+
+ 
+.player_select {
+        width:25%;
+        height: 80%;    
+        position: relative;
+        float: left;
+        }
+ 
+.grey   {
+        background-color: 89909F;
+        }
+ 
+.red    {
+        background-color: C9042B ;
+        }
+ 
+.blue   {
+        background-color: 6665DD;
+        }
+         
+.orange {
+        background-color: F7996E;
+        }
+ 
+.green  {
+        background-color: 419D78;
+        }
+         
+.yellow {
+        background-color: F9CB40;
+        }
+		
+.score_select {
+        width:50%;      
+        height:20%;
+        position: relative;
+        float: left;
+         
+}
 		
 #reset_scores {
 		background-color:#8789C0;
 		width:100%;
-		height:14%;
+		height:25%;
 		float:left;
-		text-align:center;
-		color:white;
-		font-size:200%;
 		}
 
 
