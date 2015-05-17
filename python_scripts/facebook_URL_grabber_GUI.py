@@ -67,6 +67,8 @@ ttk.Button(mainframe, text="Launch Firefox", command=firefox).grid(column=2, row
 ttk.Label(mainframe, text="Email").grid(column=3, row=1, sticky=W)
 ttk.Label(mainframe, text="Password").grid(column=3, row=2, sticky=W)
 ttk.Label(mainframe, text="Facebook ID:").grid(column=2, row=3, sticky=W)
+
+#this label will spit out the FB ID
 ttk.Label(mainframe, textvariable=ID).grid(column=3, row=3, sticky=(W, E))
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
