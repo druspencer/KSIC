@@ -34,13 +34,41 @@
 				window.localStorage.setItem( "blue_score_local", blue_score_local );
 			}
 			
+			function increase_green_score(container){
+				green_score_local++;
+				document.getElementById(container).innerHTML = green_score_local;
+				window.localStorage.setItem( "green_score_local", green_score_local );
+			}
+			function decrease_green_score(container){
+				green_score_local--;
+				document.getElementById(container).innerHTML = green_score_local;
+				window.localStorage.setItem( "green_score_local", green_score_local );
+			}
+			
+			function increase_yellow_score(container){
+				yellow_score_local++;
+				document.getElementById(container).innerHTML = yellow_score_local;
+				window.localStorage.setItem( "yellow_score_local", yellow_score_local );
+			}
+			function decrease_yellow_score(container){
+				yellow_score_local--;
+				document.getElementById(container).innerHTML = yellow_score_local;
+				window.localStorage.setItem( "yellow_score_local", yellow_score_local );
+			}
+			
 			function reset(container){
 				red_score_local = red_score_local - red_score_local ;
 				blue_score_local = blue_score_local - blue_score_local ;
+				green_score_local = green_score_local - green_score_local ;
+				yellow_score_local = yellow_score_local - yellow_score_local ;
 				document.getElementById("redCount").innerHTML = red_score_local;
 				document.getElementById("blueCount").innerHTML = blue_score_local;
+				document.getElementById("greenCount").innerHTML = green_score_local;
+				document.getElementById("yellowCount").innerHTML = yellow_score_local;
 				window.localStorage.setItem( "red_score_local", red_score_local );
 				window.localStorage.setItem( "blue_score_local", blue_score_local );
+				window.localStorage.setItem( "green_score_local", green_score_local );
+				window.localStorage.setItem( "yellow_score_local", yellow_score_local );
 				
 			}
 			
@@ -50,7 +78,82 @@
 			else {
 				container.className= 'hide'; }
 			}
+			
+		function display_players() {
+		
+		if (players_local== 1) {
+			red_increase.className= 'team_button one_player' ;
+			red_decrease.className= 'decrease_button decrease_one_player';
+			blue_increase.className= 'hide' ;
+			blue_decrease.className= 'hide';
+			green_increase.className= 'hide' ;
+			green_decrease.className= 'hide';
+			yellow_increase.className= 'hide' ;
+			yellow_decrease.className= 'hide';
+			}
+		
+		if (players_local== 2) {
+			red_increase.className= 'team_button two_players' ;
+			red_decrease.className= 'decrease_button decrease_two_players';
+			blue_increase.className= 'team_button two_players' ;
+			blue_decrease.className= 'decrease_button decrease_two_players';
+			green_increase.className= 'hide' ;
+			green_decrease.className= 'hide';
+			yellow_increase.className= 'hide' ;
+			yellow_decrease.className= 'hide';
+			}
+			
+		if (players_local== 3) {
+			red_increase.className= 'team_button three_players' ;
+			red_decrease.className= 'decrease_button decrease_three_players';
+			blue_increase.className= 'team_button three_players_point' ;
+			blue_decrease.className= 'decrease_button decrease_three_players_point';
+			green_increase.className= 'team_button three_players' ;
+			green_decrease.className= 'decrease_button decrease_three_players';
+			yellow_increase.className= 'hide' ;
+			yellow_decrease.className= 'hide';
+			}
+		
+		if (players_local== 4) {
+			red_increase.className= 'team_button four_players' ;
+			red_decrease.className= 'decrease_button decrease_four_players';
+			blue_increase.className= 'team_button four_players' ;
+			blue_decrease.className= 'decrease_button decrease_four_players';
+			green_increase.className= 'team_button four_players' ;
+			green_decrease.className= 'decrease_button decrease_four_players';
+			yellow_increase.className= 'team_button four_players' ;
+			yellow_decrease.className= 'decrease_button decrease_four_players';
+			}
+		
+		}
+		
+		function change_players_one() {
+		
+				players_local = 1;
+				window.localStorage.setItem( "players_local", players_local );
+				display_players();
+		}
+		
+				function change_players_two() {
+		
+				players_local = 2;
+				window.localStorage.setItem( "players_local", players_local );
+				display_players();
+		}
+		
+				function change_players_three() {
+		
+				players_local = 3;
+				window.localStorage.setItem( "players_local", players_local );
+				display_players();
+		}
 
+				function change_players_four() {
+		
+				players_local = 4;
+				window.localStorage.setItem( "players_local", players_local );
+				display_players();
+		}
 </script>
 
 	
@@ -63,35 +166,78 @@
 
 <div id="wrap">
 
-
-			<div id="red_increase" class="team_button" onclick=increase_red_score("redCount")>
+			<!-- Red Count Increase -->
+			<div id="red_increase" class="hide" onclick=increase_red_score("redCount")>
 				<div id="redCount" class="center_text">
 						
 				</div>
 			</div>
+			<!-- Red Count Increase -->
 
-			<div id="blue_increase" class="team_button" onclick=increase_blue_score("blueCount")>
+			<!-- Blue Count Increase -->
+			<div id="blue_increase" class="hide" onclick=increase_blue_score("blueCount")>
 				<div id="blueCount" class="center_text">
 						
 				</div>
 			</div>
+			<!-- Blue Count Increase -->
+			
+			<!-- Green Count Increase -->
+
+			<div id="green_increase" class="hide" onclick=increase_green_score("greenCount")>
+				<div id="greenCount" class="center_text">
 						
-			<div id="red_decrease" class="decrease_button" onclick=decrease_red_score("redCount")>
-				<div class="center_text">
-				[ - 1 ]
 				</div>
 			</div>
 
-			<div id="blue_decrease" class="decrease_button" onclick=decrease_blue_score("blueCount")>
-				<div class="center_text">
-				[ - 1 ]
+			<!-- Green Count Increase -->
+			
+			<!-- Yellow Count Increase -->
+
+			<div id="yellow_increase" class="hide" onclick=increase_yellow_score("yellowCount")>
+				<div id="yellowCount" class="center_text">
+						
 				</div>
 			</div>
+			
+			<!-- Yellow Count Increase -->
+				
+			<!-- Red Count Decrease -->				
+			<div id="red_decrease" class="hide" onclick=decrease_red_score("redCount")>
+				<div class="center_text">
+				- 1
+				</div>
+			</div>
+			<!-- Red Count Decrease -->	
+
+			<!-- Blue Count Decrease -->	
+			<div id="blue_decrease" class="hide" onclick=decrease_blue_score("blueCount")>
+				<div class="center_text">
+				- 1
+				</div>
+			</div>
+			<!-- Blue Count Decrease -->	
+				
+			<!-- Green Count Decrease -->
+			<div id="green_decrease" class="hide" onclick=decrease_green_score("greenCount")>
+				<div class="center_text">
+				- 1
+				</div>
+			</div>
+			<!-- Green Count Decrease -->
+
+			<!-- Yellow Count Decrease -->
+			<div id="yellow_decrease" class="hide" onclick=decrease_yellow_score("yellowCount")>
+				<div class="center_text">
+				- 1
+				</div>
+			</div>
+			<!-- Yellow Count Decrease -->
 
 			
 			<div id="settings_toggle" onclick=hideshow(settings)> 
 					
-				<div class="center_text">
+				<div class="center_symbol">
 				<i class="fa fa-cog"></i>
 				</div>
 						
@@ -99,6 +245,30 @@
 			
 						<div id="settings" class="hide">
 
+							<div id="one_player_select" class="player_select red" onclick=change_players_one()>
+								<div class="center_text">
+									1
+								</div>
+							</div>
+							
+							<div id="two_player_select" class="player_select blue" onclick=change_players_two()>
+								<div class="center_text">
+									2
+								</div>
+							</div>
+							
+							<div id="three_player_select" class="player_select green" onclick=change_players_three()>
+								<div class="center_text">
+									3
+								</div>
+							</div>
+							
+							<div id="four_player_select" class="player_select yellow" onclick=change_players_four()>
+								<div class="center_text">
+									4
+								</div>
+							</div>
+						
 							<div id="reset_scores" onclick=reset()> 
 								
 									<div class="center_text">
@@ -119,43 +289,93 @@
 
 function set_score(){
 
-if ( window.localStorage.getItem("red_score_local") == null ) { 
+			if ( window.localStorage.getItem("red_score_local") == null ) { 
 
-				red_score_local = 0; 
-				window.localStorage.setItem( "red_score_local", red_score_local );
-				red_score_local = window.localStorage.getItem("red_score_local");
-				document.getElementById("redCount").innerHTML = red_score_local;
-							
-										}
-			else {
-			
-				red_score_local = window.localStorage.getItem("red_score_local");
-				document.getElementById("redCount").innerHTML = red_score_local;
-			
-			
-			}
-		
-		if ( window.localStorage.getItem("blue_score_local") == null ) { 
+							red_score_local = 0; 
+							window.localStorage.setItem( "red_score_local", red_score_local );
+							red_score_local = window.localStorage.getItem("red_score_local");
+							document.getElementById("redCount").innerHTML = red_score_local;
+										
+													}
+						else {
+						
+							red_score_local = window.localStorage.getItem("red_score_local");
+							document.getElementById("redCount").innerHTML = red_score_local;
+						
+						
+						}
+					
+					if ( window.localStorage.getItem("blue_score_local") == null ) { 
 
-				blue_score_local = 0; 
-				window.localStorage.setItem( "blue_score_local", blue_score_local );
-				red_score_local = window.localStorage.getItem("blue_score_local");
-				document.getElementById("blueCount").innerHTML = blue_score_local;
-							
-										}
-			else {
-			
-				blue_score_local = window.localStorage.getItem("blue_score_local");
-				document.getElementById("blueCount").innerHTML = blue_score_local;
-			
-			
-			}
+							blue_score_local = 0; 
+							window.localStorage.setItem( "blue_score_local", blue_score_local );
+							blue_score_local = window.localStorage.getItem("blue_score_local");
+							document.getElementById("blueCount").innerHTML = blue_score_local;
+										
+													}
+						else {
+						
+							blue_score_local = window.localStorage.getItem("blue_score_local");
+							document.getElementById("blueCount").innerHTML = blue_score_local;
+						
+						
+						}
+						
+					if ( window.localStorage.getItem("green_score_local") == null ) { 
+
+							green_score_local = 0; 
+							window.localStorage.setItem( "green_score_local", green_score_local );
+							green_score_local = window.localStorage.getItem("green_score_local");
+							document.getElementById("greenCount").innerHTML = green_score_local;
+										
+													}
+						else {
+						
+							green_score_local = window.localStorage.getItem("green_score_local");
+							document.getElementById("greenCount").innerHTML = green_score_local;
+						
+						
+						}
+						
+						if ( window.localStorage.getItem("yellow_score_local") == null ) { 
+
+							yellow_score_local = 0; 
+							window.localStorage.setItem( "yellow_score_local", yellow_score_local );
+							yellow_score_local = window.localStorage.getItem("yellow_score_local");
+							document.getElementById("yellowCount").innerHTML = yellow_score_local;
+										
+													}
+						else {
+						
+							yellow_score_local = window.localStorage.getItem("yellow_score_local");
+							document.getElementById("yellowCount").innerHTML = yellow_score_local;
+						
+						
+						}
 			
 		}
-					 	
-	window.addEventListener("load",set_score);
-	//console.log(window.localStorage);
-	// localStorage.clear();
+		
+		function set_players () {
+
+		if ( window.localStorage.getItem("players_local") == null ) {
+
+				players_local = 2;
+				window.localStorage.setItem( "players_local", players_local );
+				players_local = window.localStorage.getItem("players_local");
+
+				}
+				
+				else {
+					players_local = window.localStorage.getItem("players_local");
+				}
+
+		}
+								
+			window.addEventListener("load",set_players);
+			window.addEventListener("load",display_players);
+			window.addEventListener("load",set_score);
+			console.log(window.localStorage);
+			//localStorage.clear();
 	
 </script>
 
