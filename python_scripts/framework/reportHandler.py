@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import os, sys, smtplib
-=======
-import reportEmail, os, sys, smtplib
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 
 class reportHandler():
 	#TODO screenshots should be saved with tests

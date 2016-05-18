@@ -15,7 +15,6 @@ def log(message):
 	log = "["+datetime.datetime.now().strftime('%H:%M:%S')+"] "+message
 	print log
 	
-<<<<<<< HEAD
 def sign_in(emailaddress, password, handler, driver):
 	#TODO add code to sign in
 	
@@ -28,7 +27,7 @@ def sign_in(emailaddress, password, handler, driver):
 	
 	time.sleep(0.5)
 	
-	try:element = driver.find_element_by_class_name("")
+	try:element = driver.find_element_by_class_name("-modal__heading")
 	except:element = None #ignore the exception, will be thrown again and handled in the testHandler class	
 	handler.assertText(
 	element,
@@ -56,7 +55,7 @@ def sign_in(emailaddress, password, handler, driver):
 	
 	time.sleep(0.5)
 	
-	try:element = driver.find_elements_by_class_name("")[1]
+	try:element = driver.find_elements_by_class_name("-form__btn-primary")[1]
 	except:element = None #ignore the exception, will be thrown again and handled in the testHandler class		
 	handler.assertValue(
 	element,
@@ -75,7 +74,7 @@ def sign_in(emailaddress, password, handler, driver):
 	
 	time.sleep(0.5)
 	
-	try:element = driver.find_elements_by_class_name("")[1]
+	try:element = driver.find_elements_by_class_name("-form__btn-primary")[1]
 	except:element = None #ignore the exception, will be thrown again and handled in the testHandler class		
 	handler.elementClick(
 	element,
@@ -92,13 +91,6 @@ def sign_in(emailaddress, password, handler, driver):
 	"Sign out")
 	
 def join(email):
-=======
-def sign_in():
-	#TODO add code to sign in
-	print "sign in"
-	
-def join():
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 	#TODO add code to join/create an account
 	print "join"
 	

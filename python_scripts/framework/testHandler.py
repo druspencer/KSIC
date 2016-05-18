@@ -1,11 +1,7 @@
 from selenium import webdriver #for web elements
 from selenium.webdriver.common.keys import Keys #for keypresses
 from selenium.common.exceptions import NoSuchElementException,  WebDriverException
-<<<<<<< HEAD
 import reportHandler, testCollections, testCase, time
-=======
-import reportHandler, testCollections, testCase
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 
 class testHandler():
 	#TODO add methods which take in elements for input and clicking, checks for exceptions
@@ -21,11 +17,7 @@ class testHandler():
 		try:
 			element.click()
 			self.test = testCase.testCase(step, expected, "PASS", "N/A")
-<<<<<<< HEAD
 		except (NoSuchElementException,WebDriverException, AttributeError):
-=======
-		except (NoSuchElementException,WebDriverException):
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 			#element not there - try again
 			print "No such element - Click"
 			self.test = testCase.testCase(step, expected, "FAIL", "Element Not Found")
@@ -33,25 +25,17 @@ class testHandler():
 	
 	def elementInput(self, element, input, step, expected):
 		try:
-<<<<<<< HEAD
 			testCollections.type_slow(input, element, 1)
 			time.sleep(0.5)
 			#print "element text: "+element.get_attribute('value')
 			assert (element.get_attribute('value') == input)
 			self.test = testCase.testCase(step, expected, "PASS", "N/A")
 		except (NoSuchElementException, WebDriverException, AttributeError):
-=======
-			utils.type_slow(input, element, 1)
-			assert (element.text == expected)
-			self.test = testCase.testCase(step, expected, "PASS", "N/A")
-		except (NoSuchElementException,WebDriverException):
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 			#element not there - try again
 			print "No such element - Input"
 			self.test = testCase.testCase(step, expected, "FAIL", "Element Not Found")
 		except AssertionError:
 			#text not there - try again
-<<<<<<< HEAD
 			self.test = testCase.testCase(step, expected, "FAIL", "Input Failed")
 		self.recordResults(self.test)
 		
@@ -83,17 +67,6 @@ class testHandler():
 			self.test = testCase.testCase(step, expected, "FAIL", "Text Not Found")
 		except AttributeError:
 			self.test = testCase.testCase(step, expected, "FAIL", "Text Not Found")
-=======
-			self.test = testCase.testCase(step, expected, "FAIL", "Text Not Found")
-		self.recordResults(self.test)
-		
-	def assertText(self, element, step, expected):
-		try:
-			assert (element.text == expected)
-			self.test = testCase.testCase(step, expected, "PASS", "N/A")
-		except AssertionError:
-			self.test = testCase.testCase(step, expected, "FAIL", "Text Not Found")
->>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 		self.recordResults(self.test)
 		
 	def recordResults(self, test):
