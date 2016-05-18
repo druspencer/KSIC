@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import testHandler, datetime, time,testCollections #for writing to directories - only used for screenies just now
+=======
 import testHandler, datetime, time #for writing to directories - only used for screenies just now
+>>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 from selenium import webdriver #for web elements
 
 #this is where the magic happens
@@ -18,6 +22,10 @@ try:
 	driver.get("")#target here
 	driver.maximize_window()
 	driver.implicitly_wait(2)
+<<<<<<< HEAD
+
+	testCollections.sign_in("", "", handler, driver)
+=======
 	#open modal
 	try:element1 = driver.find_element_by_link_text("Sign in/Join")
 	except:pass #ignore the exception, will be thrown again and handled in the testHandler class
@@ -36,6 +44,7 @@ try:
 	element2, 
 	"Click the button on the Modal", 
 	"Button is clickable")
+>>>>>>> 5d88b0e5b0ac3f42feb4360411c27eed4680bd96
 	
 
 except KeyboardInterrupt:
