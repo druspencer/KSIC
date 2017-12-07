@@ -1,4 +1,4 @@
-import json, sys
+import json
 import pprint
 # Sets a nice level of indent for pprint
 pp = pprint.PrettyPrinter(indent=4)
