@@ -1,0 +1,615 @@
+<html>
+
+<head>
+
+<title>Vote | KSIC </title>
+
+<!--link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon"-->
+<link rel="stylesheet" type="text/css" href="css/vote.css"/>
+<!--link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"-->
+<link href="http://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+
+/* 
+Base JS script
+*/
+
+String.prototype.format = function()
+{
+   var content = this;
+   for (var i=0; i < arguments.length; i++)
+   {
+        var replacement = '{' + i + '}';
+        content = content.replace(replacement, arguments[i]);  
+   }
+   return content;
+};
+
+function vote_object(choice) {
+	var _vote = {};
+	_vote.choice = choice;
+	_vote.id = null;
+	_vote.total = 0;
+	_vote.percentage = 0;
+	return _vote;
+}
+
+function vote_session(){
+	var _vote = {};
+	_vote.voters = 2;
+	_vote.voted = 0;
+	_vote.vote_complete = false;
+	_vote.vote_options = [];
+	_vote.total_vote_options = 0;
+	_vote.winner = null;
+	_vote.tie = false;
+	_vote.base_id = 1;
+	return _vote;
+}
+
+function set_voters(vote, number_of_votes){
+	vote.voters = number_of_votes;
+}
+
+function get_next_voter(vote){
+	return vote.voted + 1;
+}
+
+function add_option(vote, vote_object){
+	if (vote.total_vote_options < 5){
+		vote_object.id = "vote_{0}".format(vote.base_id.toString());
+		vote.base_id++;
+		vote.vote_options.push(vote_object);
+		vote.total_vote_options = vote.vote_options.length;	
+	}
+	else {
+		console.log("Five option limit reached");
+	}
+}
+
+function calculate_percentage(vote){
+	var _total_votes = vote.voted;
+	for (_vote in vote.vote_options){
+		var _total = vote.vote_options[_vote].total;
+		var _percentage = (_total/_total_votes) * 100;
+		vote.vote_options[_vote].percentage = _percentage.toFixed(0);
+	}
+}
+
+function search(search_term, search_key, data_set){
+    var search_results = [];
+  for (var i = 0; i < data_set.length; i++){
+      if (data_set[i][search_key] == search_term){
+      search_results.push(data_set[i]);
+      }
+  }
+  return search_results;
+}
+
+function vote_summary(vote){
+	var _totals = [];
+	for (_votes in vote.vote_options){
+		_totals.push(vote.vote_options[_votes].total);
+	}
+	_totals = _totals.sort(function(a, b){return b-a});
+	vote.winner = search(_totals[0], 'total', vote.vote_options);
+	vote.tie = vote.winner.length > 1;
+}
+
+function add_vote(vote, vote_object_id){
+	if (vote.vote_complete){
+		return console.log('Vote completed');
+	}
+	else {
+		vote.voted++;
+		vote.vote_options[vote_object_id].total++
+		vote.vote_complete = vote.voted == vote.voters;
+		calculate_percentage(vote)
+		vote_summary(vote)
+	}
+}
+
+function find_vote_by_id(vote, id_to_find){
+	var _index = vote.vote_options.indexOf(search(id_to_find, 'id', vote.vote_options)[0]);
+	return _index;
+}
+
+function get_value(element_id){
+	return document.getElementById(element_id).value;
+}
+
+function update_vote_option(vote, id_to_update){
+	var _id = "value_{0}".format(id_to_update);
+	var _change = get_value(_id)
+	vote.vote_options[find_vote_by_id(vote, id_to_update)].choice = _change;
+	save_session(vote);
+	//console.log(vote.vote_options[find_vote_by_id(vote, id_to_update)].choice);
+}
+
+function update_voters(vote){
+	var _change = get_value("num_voters");
+	if (_change <= 100){
+		vote.voters = _change;
+		save_session(vote);	
+	}
+	else {
+		console.log("Limit of 100 voters");
+	}
+}
+
+function remove_vote_option(vote, id_to_remove){
+	vote.vote_options.splice(find_vote_by_id(vote, id_to_remove), 1);
+	vote.total_vote_options = vote.vote_options.length;	
+}
+
+function add_default_options(current_session, number_of_options){
+	for (var i = 0; i < number_of_options; i++) {
+		add_option(current_session, vote_object(default_vote_title));
+	}
+}
+
+function new_session(number_of_options){
+	var _session = vote_session();
+	add_default_options(_session, number_of_options);
+	return _session;
+}
+
+function saved_session(){
+	if ( window.localStorage.getItem("vote_session") == null ) {
+		var _session = new_session(default_number_of_options);
+		save_session(_session);
+	}
+	else {
+		_session = JSON.parse(window.localStorage.getItem("vote_session"));
+	}
+	return _session;
+}
+
+function save_session(current_session){
+	var _session = JSON.stringify(current_session);
+	window.localStorage.setItem("vote_session", _session);
+}
+
+var display_voter_select_default = false;
+var default_number_of_options = 2;
+var default_vote_title = "Edit vote option";
+var title_main = "Select Vote Options";
+var title_select_voters = "Select Number of Voters";
+var title_voting = "Voting";
+var title_result = "Result";
+
+var session = saved_session();
+var session_current_pick = null;
+
+
+</script>
+
+	
+
+</head>
+
+
+<body>
+
+
+<div id="wrap">
+
+	<div id="title">
+		<div id= "title_string" class="center_text">
+
+		</div>
+	</div>
+
+	<div id="vote_area">
+
+	</div>
+
+	<div id="action_area">
+
+	</div>
+		
+</div>
+
+
+
+
+
+<script>
+
+/* 
+Post page load JS script
+*/
+
+function action_area_default_template(prevote = true){
+	if (prevote == true){
+		var action_1 = {
+			"title": "+",
+			"action": "\"update_vote_area_add()\""
+		};
+		var action_2 = {
+			"title": "Voters",
+			"action": "\"display_voter_select()\""
+		};
+		var action_3 = {
+			"title": "Vote",
+			"action": "\"display_pass_prompt()\""
+		}
+	}
+	else {
+		var action_1 = {
+			"title": "Tie Break",
+			"action": "\"tie_break_vote()\""
+		};
+		var action_2 = {
+			"title": "Revote",
+			"action": "\"reset_current_vote()\""
+		};
+		var action_3 = {
+			"title": "New Vote",
+			"action": "\"new_vote()\""
+		}
+
+	}
+	return "<!-- Pre vote action area -->"+
+		"<div id= \"add_option\" class =\"action_button_1\""+
+			"onclick={0}>".format(action_1.action)+
+			"<div class=\"center_text\">"+
+			"{0}".format(action_1.title)+
+			"</div>"+
+		"</div>"+
+		"<div id=\"add_voters\" class=\"action_button_2\" "+
+			"onClick={0}>".format(action_2.action)+
+			"<div class=\"center_text large_icon\">"+
+				"{0}".format(action_2.title)+
+			"</div>"+
+		"</div>"+
+		"<div id= \"start_vote\" class=\"action_button_3\""+
+			"onclick={0}>".format(action_3.action)+
+			"<div class=\"center_text\">"+
+			"{0}".format(action_3.title)+
+			"</div>"+
+		"</div>";
+}
+
+function action_area_voting_template(voting = false, confirm = false){
+	var _action = "";
+	if (session_current_pick == null){
+		var _class = "prompt_unselected"
+	}
+	else {
+		var _class = ""
+	}
+	if (voting == true){
+		var _prompt_text = "Confirm";
+	}
+	else {
+		var _prompt_text = "Ready to Vote";
+		var _action = "onclick=\"confirm_ready()\"";
+		var _class = ""
+	}
+	if (confirm == true){
+		var _action = "onclick=\"confirm_vote()\"";
+	}
+	return "<!-- Voting action area -->"+
+			"<div id=\"prompt_confirm\" class=\"{0}\"".format(_class)+
+			"{0}>".format(_action)+
+			"<div class=\"center_text\">"+
+				"{0}".format(_prompt_text)+
+			"</div>"+
+		"</div>";
+}
+
+function voters_area_template(){
+	return "<!-- Hidden Voters Area -->"+
+		"<div id=\"select_voters\">"+
+			"<div id=\"select_voters_block\">"+
+					"<input type=\"text\" name=\"num_voters\" id=\"num_voters\""+
+					"value=\"{0}\"".format(session.voters)+
+					"onClick=\"this.setSelectionRange(0, this.value.length)\""+
+					"onInput=\"update_voters(session)\""+
+					"class=\"edit_option_voters\"/>"+
+			"</div>"+
+		"</div>";
+}
+
+function pass_prompt_template(voter_number){
+	return "<!-- Pass Prompt Area -->"+
+			"<div id=\"pass_prompt\">"+
+			"<div id=\"pass_prompt_block\">"+
+				"<div class=\"voter_prompt_text\">"+
+				"Pass To <p/>"+
+				"Voter<p/>"+
+				"#{0}".format(voter_number)+
+				"</div>"+
+			"</div>"+
+		"</div>";
+}
+
+function vote_option_template(vote_options, voting = false){
+	var _vote_id = vote_options.id.toString();
+	if (voting == true){
+		_disabled = "disabled";
+		_class = "vote_action_area action_default";
+		_symbol = "+";
+		_action = "update_vote_action({0}.id)".format(_vote_id);
+	}
+	else {
+		_disabled = "";
+		_class = "vote_action_area action_remove";
+		_symbol = "-";
+		_action = "update_vote_area_remove({0}.id)".format(_vote_id);
+	}
+	return 	"<!-- Vote option -->" +
+	"<div class=\"vote_option\" "+
+		"id=\"{0}\">".format(_vote_id)+
+			"<div class=\"vote_title\">"+
+					"<input type=\"text\" name=\"vote_title\" "+
+					"value=\"{0}\" ".format(vote_options.choice)+
+					"id=\"value_{0}\"".format(_vote_id)+
+					"onClick=\"this.setSelectionRange(0, this.value.length)\" "+
+					"oninput=\"update_vote_option(session, {0}.id)\" ".format(_vote_id)+
+					"class=\"edit_option\" {0}/>".format(_disabled)+
+			"</div>"+
+			"<div class=\"{0}\" ".format(_class)+
+			"id=\"action_{0}\" ".format(_vote_id)+
+			"onClick=\"{0}\">".format(_action)+
+				"<div class=\"center_text\">{0}</div>".format(_symbol)+
+			"</div>"+
+	"</div>";
+}
+
+function vote_options_template(vote_options, voting = false){
+	var _options = "";
+	for (_vote in vote_options){
+		_options = _options.concat(vote_option_template(vote_options[_vote],voting));
+	}
+	return _options;
+}
+
+function vote_result_template(){
+	var _percentage = session.winner[0].percentage;
+	if (session.tie){
+		var _opening = "It's a tie! The winners are...";
+		var _winner = ""
+		for (_choice in session.winner){
+			_winner = _winner + session.winner[_choice].choice + "<p/>"
+		}
+		var _summary = "With {0}% of the vote each".format(_percentage)
+	}
+	else {
+		var _opening = "And the winner is...";
+		var _winner = session.winner[0].choice;
+		var _summary = "With {0}% of the vote".format(_percentage)
+	}
+	return "<!-- Vote Results -->"+
+		"<div id=\"result_title\">"+
+			"<div class=\"center_text left\">"+
+			"{0}".format(_opening)+
+			"</div>"+
+		"</div>"+
+		"<div id=\"vote_winner\">"+
+			"<div class=\"center_text\">"+
+			"{0}".format(_winner)+
+			"</div>"+
+		"</div>"+
+		"<div id=\"vote_percentage\">"+
+			"<div class=\"center_text\">"+
+			"{0}".format(_summary)+
+			"</div>"+
+		"</div>";
+}
+
+function update_title(title_string){
+	/*
+	Updates the string displayed in the title area with supplied string
+	*/
+	document.getElementById("title_string").innerHTML = title_string;
+}
+
+function update_vote_area_template(template){
+	/*
+	Updated the voting area div with the supplied template
+	*/
+	document.getElementById("vote_area").innerHTML = template;
+}
+
+function update_action_area_template(template){
+	/*
+	Updated the action area div with the supplied template
+	*/
+	document.getElementById("action_area").innerHTML = template;
+}
+
+function update_background_colour(element_id, colour){
+	/*
+	Updated the bcackground colour of an element based on the supplied ID and colour
+	*/
+	document.getElementById(element_id).style.backgroundColor = colour;
+}
+
+function update_class(element_id, new_class){
+	/*
+	Updated the class of an element based on the supplied ID and new class
+	*/
+	document.getElementById(element_id).className = new_class
+}
+
+function set_vote_display(set_value){
+	display_voter_select_default = set_value;
+}
+
+function update_vote_area_add(){
+	/*
+	Function to add new voting options - hard coded to limit to 5
+	If limit is reached then button is visually shown to be disabled and
+	no other functions are performed
+	*/
+	if (session.total_vote_options < 5) {
+		add_option(session, vote_object(default_vote_title));
+		update_vote_area_template(vote_options_template(session.vote_options));
+		set_vote_display(false);
+		save_session(session);
+	}
+	if (session.total_vote_options == 5) {
+		update_background_colour("add_option", "gray");
+	}
+}
+
+function display_voter_select(){
+	/*
+	Function to display the voter select template based on the globall variable of
+	display_voter_select_default. Changes the defult to the opposite boolean and 
+	updated the vote area to display voters_area_template.
+
+	Also updated title to the title_select_voters variable.
+	*/
+	if (display_voter_select_default == false){
+		update_title(title_select_voters);
+		update_vote_area_template(voters_area_template());
+		set_vote_display(true);
+		save_session(session);
+	}
+	else {
+		update_title(title_main);
+		update_vote_area_template(vote_options_template(session.vote_options, voting = false));
+		set_vote_display(false);
+	}
+}
+
+function update_vote_area_remove(id_to_remove){
+	/*
+	Function to remove the selected vote from the session vote options. Also updates 
+	the vote area with the new vote_options template and ensures the add_option button 
+	is visually clickable.
+	*/
+	remove_vote_option(session, id_to_remove);
+	update_vote_area_template(vote_options_template(session.vote_options));
+	update_background_colour("add_option", "white");
+	save_session(session);
+}
+
+function display_pass_prompt(){
+	/*
+	Updated the title to display the title_voting variable.
+	Updates the vote area to display the pass prompt page.
+	Updates the action area to display the voting template for user confirm when 
+	ready to vote voting=false
+	*/
+	update_title(title_voting);
+	update_vote_area_template(pass_prompt_template(get_next_voter(session)));
+	update_action_area_template(action_area_voting_template(voting=false));
+}
+
+function reset_vote_action_display(){
+	/*
+	During voting, resets the class of the vote options to default so that only
+	one is highlighted green at a time
+	*/
+	for (_option in session.vote_options) {
+		var _temp_action_element = "action_{0}".format(session.vote_options[_option].id);
+		update_class(_temp_action_element, "vote_action_area action_default");
+	}
+}
+
+function confirm_ready(){
+	/*
+	Updates the voting area with the voting options for the user to action on.
+	Updates the action area with the voting template
+	*/
+	update_vote_area_template(vote_options_template(session.vote_options, voting=true));
+	update_action_area_template(action_area_voting_template(true));
+}
+
+function update_vote_action(id_to_action){
+	session_current_pick = id_to_action;
+	var _action_element = "action_{0}".format(id_to_action);
+	reset_vote_action_display();
+	update_class(_action_element, "vote_action_area action_selected");
+	update_action_area_template(action_area_voting_template(true, true));
+}
+
+function confirm_vote(){
+	var _vote_index = find_vote_by_id(session, session_current_pick);
+	add_vote(session, _vote_index);
+	session_current_pick = null;
+	if (session.voted < session.voters){
+		display_pass_prompt();
+	}
+	else {
+		/*
+		Displays result screen if everyone has voted
+		*/
+		result_screen();
+		save_session(session);
+	}
+}
+
+function new_vote(){
+	session = new_session(default_number_of_options);
+	set_vote_display(false);
+	start_screen();
+	save_session(session);
+}
+
+function reset_vote(keep_options=true){
+	session.vote_complete = false;
+	session.tie = false;
+	session.winner = null;
+	session.voted = 0;	
+	if (keep_options == false){
+		session.vote_options = [];
+		session.base_id = 1;
+		session.total_vote_options = 0;
+	}
+	save_session(session);
+}
+
+function reset_current_vote(){
+	reset_vote(keep_options=true);
+	for (_option in session.vote_options){
+		session.vote_options[_option].total = 0;
+		session.vote_options[_option].percentage = 0;
+	}
+	start_screen();
+	save_session(session);
+}
+
+function tie_break_vote(){
+	var _winners = session.winner;
+	reset_vote(keep_options=false);
+	for (_tied_winner in _winners){
+		add_option(session, vote_object(_winners[_tied_winner].choice));
+	}
+	start_screen();
+	save_session(session);
+}
+
+function start_screen(){
+	if (session.vote_complete == true){
+		result_screen();
+	}
+	else {
+		update_title(title_main);
+		update_vote_area_template(vote_options_template(session.vote_options, voting = false));
+		update_action_area_template(action_area_default_template(prevote=true));
+	}
+}
+
+function result_screen(){
+	update_title(title_result);
+	update_vote_area_template(vote_result_template());
+	update_action_area_template(action_area_default_template(prevote=false));
+}
+
+start_screen();
+
+
+</script>
+
+
+</body>
+
+
+</html>
