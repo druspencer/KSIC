@@ -64,7 +64,7 @@ input {
 	width: 100%;
 	height: 100%;
 	background-color:#F68E5F;
-	font-size: 300%;
+	font-size: 300% !important;
 }
 
 .vote_title {
@@ -100,7 +100,7 @@ input {
 #select_voters {
 	width:100%;
 	height: 100%;
-	background-color:#F68E5F;
+	background-color:#F5DD90;
 	color:black;
 	z-index: 10;
 }
