@@ -330,28 +330,37 @@ function pass_prompt_template(voter_number){
 function vote_option_template(vote_options, voting = false){
 	var _vote_id = vote_options.id.toString();
 	if (voting == true){
-		_disabled = "disabled";
-		_class = "vote_action_area action_default";
-		_symbol = "+";
-		_action = "update_vote_action({0}.id)".format(_vote_id);
+		var _disabled = "disabled";
+		var _class = "vote_action_area action_default";
+		var _symbol = "+";
+		var _action = "update_vote_action({0}.id)".format(_vote_id);
+		var _vote_option = 	"<div class=\"vote_title\">"+
+					"<div name=\"vote_title\" "+
+					"value=\"{0}\" ".format(vote_options.choice)+
+					"id=\"value_{0}\"".format(_vote_id)+
+					"class=\"edit_option center_text\" {0}/>".format(_disabled)+
+					"{0}".format(vote_options.choice)+
+					"</div>"+
+				"</div>";
 	}
 	else {
-		_disabled = "";
-		_class = "vote_action_area action_remove";
-		_symbol = "-";
-		_action = "update_vote_area_remove({0}.id)".format(_vote_id);
-	}
-	return 	"<!-- Vote option -->" +
-	"<div class=\"vote_option\" "+
-		"id=\"{0}\">".format(_vote_id)+
-			"<div class=\"vote_title\">"+
+		var _disabled = "";
+		var _class = "vote_action_area action_remove";
+		var _symbol = "-";
+		var _action = "update_vote_area_remove({0}.id)".format(_vote_id);
+		var _vote_option = 	"<div class=\"vote_title\">"+
 					"<input type=\"text\" name=\"vote_title\" "+
 					"value=\"{0}\" ".format(vote_options.choice)+
 					"id=\"value_{0}\"".format(_vote_id)+
 					"onClick=\"this.setSelectionRange(0, this.value.length)\" "+
 					"oninput=\"update_vote_option(session, {0}.id)\" ".format(_vote_id)+
 					"class=\"edit_option\" {0}/>".format(_disabled)+
-			"</div>"+
+					"</div>";
+	}
+	return 	"<!-- Vote option -->" +
+	"<div class=\"vote_option\" "+
+		"id=\"{0}\">".format(_vote_id)+
+			"{0}".format(_vote_option)+
 			"<div class=\"{0}\" ".format(_class)+
 			"id=\"action_{0}\" ".format(_vote_id)+
 			"onClick=\"{0}\">".format(_action)+
