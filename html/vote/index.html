@@ -330,7 +330,6 @@ function pass_prompt_template(voter_number){
 function vote_option_template(vote_options, voting = false){
 	var _vote_id = vote_options.id.toString();
 	if (voting == true){
-		var _disabled = "disabled";
 		var _class = "vote_action_area action_default";
 		var _symbol = "+";
 		var _action = "update_vote_action({0}.id)".format(_vote_id);
@@ -338,13 +337,12 @@ function vote_option_template(vote_options, voting = false){
 					"<div name=\"vote_title\" "+
 					"value=\"{0}\" ".format(vote_options.choice)+
 					"id=\"value_{0}\"".format(_vote_id)+
-					"class=\"edit_option center_text\" {0}/>".format(_disabled)+
+					"class=\"edit_option center_text\"/>"+
 					"{0}".format(vote_options.choice)+
 					"</div>"+
 				"</div>";
 	}
 	else {
-		var _disabled = "";
 		var _class = "vote_action_area action_remove";
 		var _symbol = "-";
 		var _action = "update_vote_area_remove({0}.id)".format(_vote_id);
@@ -354,7 +352,7 @@ function vote_option_template(vote_options, voting = false){
 					"id=\"value_{0}\"".format(_vote_id)+
 					"onClick=\"this.setSelectionRange(0, this.value.length)\" "+
 					"oninput=\"update_vote_option(session, {0}.id)\" ".format(_vote_id)+
-					"class=\"edit_option\" {0}/>".format(_disabled)+
+					"class=\"edit_option\"/>"+
 					"</div>";
 	}
 	return 	"<!-- Vote option -->" +
