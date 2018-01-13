@@ -18,6 +18,11 @@ Base JS script
 
 String.prototype.format = function()
 {
+	/*
+	Adds string formatting to any string
+	"to complete th string you {0}".format("add in this")
+	Where {0} is replaced with the value in the function arguement(s)
+	*/
    var content = this;
    for (var i=0; i < arguments.length; i++)
    {
@@ -28,6 +33,9 @@ String.prototype.format = function()
 };
 
 function vote_object(choice) {
+	/*
+	Models a vote option
+	*/
 	var _vote = {};
 	_vote.choice = choice;
 	_vote.id = null;
@@ -37,6 +45,9 @@ function vote_object(choice) {
 }
 
 function vote_session(){
+	/*
+	Models the vote session with default fields
+	*/
 	var _vote = {};
 	_vote.voters = 2;
 	_vote.voted = 0;
@@ -50,14 +61,27 @@ function vote_session(){
 }
 
 function set_voters(vote, number_of_votes){
+	/*
+	Updates the number of voters  to the specified number in arguement
+	*/
 	vote.voters = number_of_votes;
 }
 
 function get_next_voter(vote){
+	/*
+	Returns the numerical value for the next voter
+	If 1 vote has been made, returns 2
+	*/
 	return vote.voted + 1;
 }
 
 function add_option(vote, vote_object){
+	/*
+	Creates a "vote_" ID for vote option
+	Updates the base ID of the session by an increment of 1 for html div id generation
+	Adds a vote option to the vote session up to 5 possible options (currently hardcoded limit)
+	Updates the total vote option for the session based on vote_option length
+	*/
 	if (vote.total_vote_options < 5){
 		vote_object.id = "vote_{0}".format(vote.base_id.toString());
 		vote.base_id++;
@@ -70,6 +94,10 @@ function add_option(vote, vote_object){
 }
 
 function calculate_percentage(vote){
+	/*
+	Based on the current number of votes and total for each vote option
+	calculates the current % of the vote for that option
+	*/
 	var _total_votes = vote.voted;
 	for (_vote in vote.vote_options){
 		var _total = vote.vote_options[_vote].total;
@@ -79,6 +107,10 @@ function calculate_percentage(vote){
 }
 
 function search(search_term, search_key, data_set){
+	/*
+	Returns all objects in an array where the search team for the search ket meets
+	For example vote.choice where the name is bacon
+	*/
     var search_results = [];
   for (var i = 0; i < data_set.length; i++){
       if (data_set[i][search_key] == search_term){
@@ -89,6 +121,14 @@ function search(search_term, search_key, data_set){
 }
 
 function vote_summary(vote){
+	/*
+	To run after each vote is cast
+	For all vote options, adds their total to an array
+	The array is then sorted highest to lowest
+	We then add winners to vote.winner by searching through the vote optoins based on the total value
+	For example all vote_options with a total of 2
+	If there is more than 1 vote_option added to vote.winner we know it is a tie and flag vote.tie appropriately
+	*/
 	var _totals = [];
 	for (_votes in vote.vote_options){
 		_totals.push(vote.vote_options[_votes].total);
@@ -99,6 +139,12 @@ function vote_summary(vote){
 }
 
 function add_vote(vote, vote_object_id){
+	/*
+	Increments the vote.voted count by 1
+	Increments vote_option.total for the given vote_object_id by 1
+	Runs the pecentage function
+	Updates vote summary
+	*/
 	if (vote.vote_complete){
 		return console.log('Vote completed');
 	}
@@ -112,6 +158,12 @@ function add_vote(vote, vote_object_id){
 }
 
 function insta_decide(vote){
+	/*
+	Picks a random winning option based on the available options
+	Returns a random number between 1 and the number of vote options
+	Takes away 1 to use that number as an array index
+	Updates vote session to simulate all voters voting for that option
+	*/
 	var rand_pick = Math.floor((Math.random() * vote.vote_options.length) + 1) - 1;
 	vote.vote_options[rand_pick].total = vote.voters;
 	vote.voted = vote.voters;
@@ -120,23 +172,37 @@ function insta_decide(vote){
 }
 
 function find_vote_by_id(vote, id_to_find){
+	/*
+	Using the string ID of a vote option, return the index of that vote based on a
+	search result for the option
+	*/
 	var _index = vote.vote_options.indexOf(search(id_to_find, 'id', vote.vote_options)[0]);
 	return _index;
 }
 
 function get_value(element_id){
+	/*
+	Returns the inner value of the html element for the provided ID
+	*/
 	return document.getElementById(element_id).value;
 }
 
 function update_vote_option(vote, id_to_update){
+	/*
+	Checks the value of a html element and adds that as the voting option
+	Saves session
+	*/
 	var _id = "value_{0}".format(id_to_update);
 	var _change = get_value(_id)
 	vote.vote_options[find_vote_by_id(vote, id_to_update)].choice = _change;
 	save_session(vote);
-	//console.log(vote.vote_options[find_vote_by_id(vote, id_to_update)].choice);
 }
 
 function update_voters(vote){
+	/*
+	Changes the numbers of voters on the vote session, hardcoded max of 100
+	Logs to console if limit is reached
+	*/
 	var _change = get_value("num_voters");
 	if (_change <= 100){
 		vote.voters = _change;
@@ -148,23 +214,40 @@ function update_voters(vote){
 }
 
 function remove_vote_option(vote, id_to_remove){
+	/*
+	Removes a vote option from the session based on vote option ID
+	Splices the found vote from the vote_options array
+	Updates the total number of vote options
+	*/
 	vote.vote_options.splice(find_vote_by_id(vote, id_to_remove), 1);
 	vote.total_vote_options = vote.vote_options.length;	
 }
 
 function add_default_options(current_session, number_of_options){
+	/*
+	Give supplied number of options, create a default vote option with the 
+	specifed vote name defined in the var default_vote_title
+	*/
 	for (var i = 0; i < number_of_options; i++) {
 		add_option(current_session, vote_object(default_vote_title));
 	}
 }
 
 function new_session(number_of_options){
+	/*
+	Creates a new voting session with default options
+	*/
 	var _session = vote_session();
 	add_default_options(_session, number_of_options);
 	return _session;
 }
 
 function saved_session(){
+	/*
+	Checks local storage for a save vote session
+	If there is no session, create and save one
+	If there is a session, JSON.parse the session and return it
+	*/
 	if ( window.localStorage.getItem("vote_session") == null ) {
 		var _session = new_session(default_number_of_options);
 		save_session(_session);
@@ -176,10 +259,17 @@ function saved_session(){
 }
 
 function save_session(current_session){
+	/*
+	Saves the current vote session to local storage by first turning it
+	into a JSON string
+	*/
 	var _session = JSON.stringify(current_session);
 	window.localStorage.setItem("vote_session", _session);
 }
 
+/*
+Default options for setting up vote display
+*/
 var display_voter_select_default = false;
 var default_number_of_options = 2;
 var default_vote_title = "Edit vote option";
@@ -189,6 +279,10 @@ var title_voting = "Voting";
 var title_result = "Result";
 
 var session = saved_session();
+
+/*
+Current pick variable to determin when to toggle contextual button actions on voting
+*/
 var session_current_pick = null;
 
 
@@ -542,6 +636,11 @@ function display_pass_prompt(){
 }
 
 function display_insta_result(){
+	/*
+	Runs the insta_decide function to pick a random winner
+	Saves the session
+	Displays the result screen
+	*/
 	insta_decide(session);
 	save_session(session);
 	result_screen();
@@ -568,6 +667,11 @@ function confirm_ready(){
 }
 
 function update_vote_action(id_to_action){
+	/*
+	Function on voting to log the selected vote option
+	Clear formatting from all vote buttons
+	Apply action formatting to the selected vote action (only one vote action button green at a time)
+	*/
 	session_current_pick = id_to_action;
 	var _action_element = "action_{0}".format(id_to_action);
 	reset_vote_action_display();
@@ -576,6 +680,11 @@ function update_vote_action(id_to_action){
 }
 
 function confirm_vote(){
+	/*
+	Function to log users vote or display result screen if voted == voters
+	Results current_pick to null
+	Adds vote and saves session on result screen (session not saved during voting process)
+	*/
 	var _vote_index = find_vote_by_id(session, session_current_pick);
 	add_vote(session, _vote_index);
 	session_current_pick = null;
@@ -592,6 +701,10 @@ function confirm_vote(){
 }
 
 function new_vote(){
+	/*
+	Resets vote app for new vote based on app defaults
+	Saves session
+	*/
 	session = new_session(default_number_of_options);
 	set_vote_display(false);
 	start_screen();
@@ -599,6 +712,12 @@ function new_vote(){
 }
 
 function reset_vote(keep_options=true){
+	/*
+	Sets all counters to null/false/0
+	If keep_options then vote options are kept
+	If not then keeping options then these are reset too
+	Saves session
+	*/
 	session.vote_complete = false;
 	session.tie = false;
 	session.winner = null;
@@ -612,6 +731,11 @@ function reset_vote(keep_options=true){
 }
 
 function reset_current_vote(){
+	/*
+	Resets the current voting session keeping vote options
+	Reloads the start screen
+	Saves session
+	*/
 	reset_vote(keep_options=true);
 	for (_option in session.vote_options){
 		session.vote_options[_option].total = 0;
@@ -622,6 +746,11 @@ function reset_current_vote(){
 }
 
 function tie_break_vote(){
+	/*
+	Resets the current voting session but only adding winners of tie break to vote options
+	Reloads the start screen
+	Saves session
+	*/
 	var _winners = session.winner;
 	reset_vote(keep_options=false);
 	for (_tied_winner in _winners){
@@ -632,6 +761,10 @@ function tie_break_vote(){
 }
 
 function start_screen(){
+	/*
+	Draws the start screen for the app, if there is a saved session that has been marked
+	as complete then the result screen is drawn
+	*/
 	if (session.vote_complete == true){
 		result_screen();
 	}
@@ -643,6 +776,9 @@ function start_screen(){
 }
 
 function result_screen(){
+	/*
+	Draws the result screen for the app
+	*/
 	update_title(title_result);
 	update_vote_area_template(vote_result_template());
 	update_action_area_template(action_area_default_template(prevote=false));
