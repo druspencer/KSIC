@@ -106,9 +106,17 @@ function add_vote(vote, vote_object_id){
 		vote.voted++;
 		vote.vote_options[vote_object_id].total++
 		vote.vote_complete = vote.voted == vote.voters;
-		calculate_percentage(vote)
-		vote_summary(vote)
+		calculate_percentage(vote);
+		vote_summary(vote);
 	}
+}
+
+function insta_decide(vote){
+	var rand_pick = Math.floor((Math.random() * vote.vote_options.length) + 1) - 1;
+	vote.vote_options[rand_pick].total = vote.voters;
+	vote.voted = vote.voters;
+	calculate_percentage(vote);
+	vote_summary(vote);
 }
 
 function find_vote_by_id(vote, id_to_find){
@@ -222,50 +230,73 @@ var session_current_pick = null;
 Post page load JS script
 */
 
-function action_area_default_template(prevote = true){
+function action_area_default_template(prevote = true, select_voters = false){
 	if (prevote == true){
 		var action_1 = {
 			"title": "+",
-			"action": "\"update_vote_area_add()\""
+			"action": "\"update_vote_area_add()\"",
+			"class": "action_button_1 action_two_options"
 		};
 		var action_2 = {
 			"title": "Voters",
-			"action": "\"display_voter_select()\""
+			"action": "\"display_voter_select()\"",
+			"class": "action_button_2 action_two_options"
 		};
 		var action_3 = {
+			"title": "",
+			"action": "",
+			"class": ""
+		}
+	}
+	else if (select_voters == true){
+		var action_1 = {
+			"title": "Insta-Vote",
+			"action": "\"display_insta_result()\"",
+			"class": "action_button_1 action_two_options"
+		};
+		var action_2 = {
 			"title": "Vote",
-			"action": "\"display_pass_prompt()\""
+			"action": "\"display_pass_prompt()\"",
+			"class": "action_button_2 action_two_options"
+		};
+		var action_3 = {
+			"title": "",
+			"action": "",
+			"class": ""
 		}
 	}
 	else {
 		var action_1 = {
 			"title": "Tie Break",
-			"action": "\"tie_break_vote()\""
+			"action": "\"tie_break_vote()\"",
+			"class": "action_button_1"
 		};
 		var action_2 = {
 			"title": "Revote",
-			"action": "\"reset_current_vote()\""
+			"action": "\"reset_current_vote()\"",
+			"class": "action_button_2"
 		};
 		var action_3 = {
 			"title": "New Vote",
-			"action": "\"new_vote()\""
+			"action": "\"new_vote()\"",
+			"class": "action_button_3"
 		}
 
 	}
 	return "<!-- Pre vote action area -->"+
-		"<div id= \"add_option\" class =\"action_button_1\""+
+		"<div id= \"add_option\" class =\"{0}\"".format(action_1.class)+
 			"onclick={0}>".format(action_1.action)+
 			"<div class=\"center_text\">"+
 			"{0}".format(action_1.title)+
 			"</div>"+
 		"</div>"+
-		"<div id=\"add_voters\" class=\"action_button_2\" "+
+		"<div id=\"add_voters\" class=\"{0}\" ".format(action_2.class)+
 			"onClick={0}>".format(action_2.action)+
 			"<div class=\"center_text large_icon\">"+
 				"{0}".format(action_2.title)+
 			"</div>"+
 		"</div>"+
-		"<div id= \"start_vote\" class=\"action_button_3\""+
+		"<div id= \"start_vote\" class=\"{0}\"".format(action_3.class)+
 			"onclick={0}>".format(action_3.action)+
 			"<div class=\"center_text\">"+
 			"{0}".format(action_3.title)+
@@ -475,6 +506,7 @@ function display_voter_select(){
 	if (display_voter_select_default == false){
 		update_title(title_select_voters);
 		update_vote_area_template(voters_area_template());
+		update_action_area_template(action_area_default_template(false, true));
 		set_vote_display(true);
 		save_session(session);
 	}
@@ -493,7 +525,7 @@ function update_vote_area_remove(id_to_remove){
 	*/
 	remove_vote_option(session, id_to_remove);
 	update_vote_area_template(vote_options_template(session.vote_options));
-	update_background_colour("add_option", "white");
+	update_background_colour("add_option", "#6699CC");
 	save_session(session);
 }
 
@@ -507,6 +539,12 @@ function display_pass_prompt(){
 	update_title(title_voting);
 	update_vote_area_template(pass_prompt_template(get_next_voter(session)));
 	update_action_area_template(action_area_voting_template(voting=false));
+}
+
+function display_insta_result(){
+	insta_decide(session);
+	save_session(session);
+	result_screen();
 }
 
 function reset_vote_action_display(){
