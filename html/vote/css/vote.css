@@ -168,27 +168,31 @@ input {
 .action_button_1{
 	width:33.3%;
 	height:100%;
-	background-color:white;
+	background-color:#6699CC;
 	position: relative;
     float: left;
-    color:#BFC0C0;
+    color:white;
 }
 
 .action_button_2 {
 	width:33.3%;
 	height:100%;
 	position: relative;
-	background-color:#6699CC;
+	background-color:#06A77D;
     float: left;	
 }
 
 .action_button_3{
 	width:33.3%;
 	height:100%;
-	background-color:#06A77D;
+	background-color:#F5DD90;
 	position: relative;
     float: right;
     color:white;
+}
+
+.action_two_options{
+	width:50%;
 }
 
 #result_title{
